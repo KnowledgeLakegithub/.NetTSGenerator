@@ -55,7 +55,7 @@ namespace TS.CodeGenerator
             var methods = _type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => !x.IsSpecialName);
             Methods = methods.Select(m => new TSMethod(m, _mapType)).ToList();
 
-            //generics
+            //generic
             if (_type.IsGenericType)
             {
                 GenericParameters = _type.GetGenericArguments().Select(a => new TSGenericParameter(a, _mapType)).ToList();

@@ -47,7 +47,10 @@ namespace TS.CodeGenerator
                     return Types.Any;
                 }
             }
-
+            if (type.IsGenericParameter)
+            {
+                return type.Name;
+            }
             if (!Settings.FollowExternalAssemblies)
             {
                 //anything from other assemblies are any

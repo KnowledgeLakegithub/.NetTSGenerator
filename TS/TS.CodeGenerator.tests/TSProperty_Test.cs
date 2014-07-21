@@ -93,69 +93,7 @@ namespace TS.CodeGenerator.tests
             Assert.IsTrue(!string.IsNullOrEmpty(res));
         }
 
-        [TestMethod]
-        public void TestAssemblyGenerator()
-        {
-
-            //arrange
-            var c = typeof(testClass1);
-           
-
-            //act
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "KnowledgeLake.Index.Web.Contracts.dll");
-            var rdr = new AssemblyReader(path);
-            var res = rdr.GenerateTypingsString();
-
-
-            //assert
-            Assert.IsTrue(!string.IsNullOrEmpty(res));
-        }
-
-
-        //[TestMethod]
-        //public void TestLocal()
-        //{
-
-        //    //arrange
-        //    var c = typeof(testClass1);
-           
-
-        //    //act
-        //    var path = Path.Combine(@"C:\Development\MaintenanceSuite\Maintenance.Contracts\bin\Debug\", "Maintenance.Contracts.dll");
-        //    var rdr = new AssemblyReader(path);
-        //    var res = rdr.GenerateTypingsString();
-
-
-        //    //assert
-        //    Assert.IsTrue(!string.IsNullOrEmpty(res));
-        //}
-       // [TestMethod]
-        public void TestALLTHETHINGS()
-        {
-
-            //arrange
-            var c = typeof(testClass1);
-            
-            //act
-
-            foreach (string file in Directory.EnumerateFiles("D://Development", "*.contracts.dll", SearchOption.AllDirectories))
-            {
-                string res;
-                try
-                {
-                    var rdr = new AssemblyReader(file);
-
-                    res = rdr.GenerateTypingsString();
-                }
-                catch (FileNotFoundException e)
-                {
-                    
-                }
-            }
-          
-            //assert
-            Assert.IsTrue(!string.IsNullOrEmpty(""));
-        }
+       
 
 
     }
