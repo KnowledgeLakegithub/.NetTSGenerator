@@ -15,14 +15,14 @@ namespace TS.CodeGenerator
             _typeMap = new Dictionary<Type, string>(Settings.StartingTypeMap);
             _interfaceMap = new Dictionary<Type, TSInterface>();
             _currentAssembly = currentAssembly;
-           
+
         }
         public string GenerateLookupTypeName(Type type)
         {
             //todo generate enums?
             if (type.IsEnum)
                 return Types.Any;
-           
+
             //quickly map simple type maps
             if (_typeMap.ContainsKey(type))
             {
@@ -84,7 +84,7 @@ namespace TS.CodeGenerator
         public string ToTSString()
         {
             var interfaces = _interfaceMap.Values
-                .Where(i=>!i.IsGenericMetaClass)//bob<string>, vs bob<T>
+                .Where(i => !i.IsGenericMetaClass)//bob<string>, vs bob<T>
                 .Distinct(new InterfaceComparer());
 
 
@@ -96,7 +96,12 @@ namespace TS.CodeGenerator
 
         bool isGenericEnumerable(Type t)
         {
-            return t.GetInterface(typeof(IEnumerable<>).FullName) != null;
+            if (!t.IsGenericType)
+                return false;
+
+            var genType = t.GetGenericTypeDefinition();
+            return genType == typeof (IEnumerable<>) || genType == typeof(IList<>);
+
         }
 
 

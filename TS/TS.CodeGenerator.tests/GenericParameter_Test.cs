@@ -1,10 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TS.CodeGenerator.tests
 {
     interface MyClass<T>
     {
         T GetT(T input);
+
+        IEnumerable<int> data { get; set; }
     }
     [TestClass]
     public class GenericParameter_Test
@@ -22,6 +26,21 @@ namespace TS.CodeGenerator.tests
 
             //assert
             Assert.IsTrue(res.Contains("GetT?(input:T/*T*/):JQueryPromise<T>;"));
+        }
+    
+        [TestMethod]
+        public void TestMethod2()
+        {
+            //arrange
+            var c = typeof(MyClass<>);
+            var gen = new TSGenerator(c.Assembly);
+
+            //act
+            gen.AddInterface(c);
+            var res = gen.ToTSString();
+
+            //assert
+            Assert.IsTrue(res.Contains("number[]"));
         }
     }
 }
