@@ -1,10 +1,40 @@
-This will build a d.ts file from a .net assembly.
+.Net TS Generator
+=================
+
+This DLL will build a d.ts file given a .net assembly.
+
+Rationalle
+----------
+This is designed to run as a post build step on your *.Contracts.dll.  It will take PONO and convert them to Typescript Interfaces:
+
+
+Example Output
+--------------
+```typescript
+//MYNS.Model
+interface IModel{
+  //properties
+	Name: string; //System.String
+}
+
+
+
+//MYNS.IModelService
+interface IModelService{
+
+  //methods
+	GetModelFromModel(aModel:IModel/*Model*/,path:string/*String*/):JQueryPromise<IModel>;
+}
+```
 
 example post build step ps1:
+----------------------------
 
 execute: powershell -file "$(SolutionDir)\MY.Contracts\build_dts.ps1"
 
-build_dts.psl:
+example build_dts.ps1 (starts from MY.Contracts.dll and generates MY.Contracts.d.ts):
+-------------------------------------------------------------------------------------
+
 ```powershell
 $pwd = split-path -parent $MyInvocation.MyCommand.Definition
 
