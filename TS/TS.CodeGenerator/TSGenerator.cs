@@ -30,7 +30,8 @@ namespace TS.CodeGenerator
             }
 
             //allow only generic enumerables
-            if (isGenericEnumerable(type))
+            //generic array first
+            if (IsGenericEnumerable(type))
             {
                 try
                 {
@@ -46,6 +47,15 @@ namespace TS.CodeGenerator
                 {
                     return Types.Any;
                 }
+            }
+            //standard aray
+            if (type.IsArray)
+            {
+                var typeOfElements = type.GetElementType();
+                var name = GenerateLookupTypeName(typeOfElements) + "[]";
+                if (!_typeMap.ContainsKey(type))
+                    _typeMap.Add(type, name);
+                return name;
             }
             if (type.IsGenericParameter)
             {
@@ -81,6 +91,12 @@ namespace TS.CodeGenerator
                 return obj.InterFaceName.GetHashCode();
             }
         }
+
+        public void Initialize()
+        {
+           
+        }
+
         public string ToTSString()
         {
             var interfaces = _interfaceMap.Values
@@ -88,19 +104,18 @@ namespace TS.CodeGenerator
                 .Distinct(new InterfaceComparer());
 
 
-            var strs = interfaces.Select(v => v.ToString());
+            var strs = interfaces.Select(v => v.ToTSString());
             return string.Join(Settings.EndOfLine, strs);
         }
 
 
-
-        bool isGenericEnumerable(Type t)
+        static bool IsGenericEnumerable(Type t)
         {
             if (!t.IsGenericType)
                 return false;
 
             var genType = t.GetGenericTypeDefinition();
-            return genType == typeof (IEnumerable<>) || genType == typeof(IList<>);
+            return genType == typeof(IEnumerable<>) || genType == typeof(IList<>);
 
         }
 

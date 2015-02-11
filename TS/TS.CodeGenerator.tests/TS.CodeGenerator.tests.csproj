@@ -55,6 +55,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GenericParameter_Test.cs" />
+    <Compile Include="TSInterfact_test.cs" />
+    <Compile Include="TSMethod_Test.cs" />
     <Compile Include="TSProperty_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

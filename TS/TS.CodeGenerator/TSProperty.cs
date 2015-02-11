@@ -3,32 +3,39 @@ using System.Reflection;
 
 namespace TS.CodeGenerator
 {
-    public class TSProperty
+    public class TSProperty:IGenerateTS
     {
         private readonly PropertyInfo _propertyInfo;
+        private readonly Func<Type, string> _mapType;
 
         public TSProperty(PropertyInfo propertyInfo, Func<Type,string> mapType )
         {
             _propertyInfo = propertyInfo;
+            _mapType = mapType;
 
             PropertyName = propertyInfo.Name;
             
-            PropertyType = propertyInfo.PropertyType.IsGenericParameter
-                            ? propertyInfo.PropertyType.Name
-                            : mapType(propertyInfo.PropertyType);
+            
         }
 
         public string PropertyName { get; private set; }
         public string PropertyType { get; private set; }
 
-        public override string ToString()
+        public void Initialize()
         {
-            if (isNullable())
-            {
-                return string.Format("{0}?: {1}; //{2}", PropertyName, PropertyType, _propertyInfo.PropertyType);
-            }
-            
-            return string.Format("{0}: {1}; //{2}", PropertyName, PropertyType, _propertyInfo.PropertyType);
+            PropertyType = _propertyInfo.PropertyType.IsGenericParameter
+                            ? _propertyInfo.PropertyType.Name
+                            : _mapType(_propertyInfo.PropertyType);
+        }
+
+        public string ToTSString()
+        {
+            return string.Format(isNullable() 
+                    ? "{0}?: {1}; /*{2}*/" 
+                    : "{0}: {1}; /*{2}*/", 
+                    PropertyName, 
+                    PropertyType, 
+                    _propertyInfo.PropertyType);
         }
 
         private bool isNullable()

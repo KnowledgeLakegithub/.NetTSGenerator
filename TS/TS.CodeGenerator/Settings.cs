@@ -13,6 +13,7 @@ namespace TS.CodeGenerator
             MakeMethodsOptional = true;
             FollowExternalAssemblies = false;
             EndOfLine = "\r\n";
+            MethodReturnTypeFormatString = "JQueryPromise<{0}>";
             StartingTypeMap = new Dictionary<Type, string>
             {
                 {typeof (string), Types.String},
@@ -47,7 +48,8 @@ namespace TS.CodeGenerator
                 {typeof (void), Types.Void}
             };
         }
-      
+
+        public static string MethodReturnTypeFormatString { get; set; }
         public static bool MakeMethodsOptional { get; set; }
         public static bool FollowExternalAssemblies { get; set; }
         public static Dictionary<Type, string> StartingTypeMap { get; set; }

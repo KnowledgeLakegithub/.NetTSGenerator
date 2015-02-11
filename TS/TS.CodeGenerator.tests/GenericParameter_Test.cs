@@ -10,6 +10,17 @@ namespace TS.CodeGenerator.tests
 
         IEnumerable<int> data { get; set; }
     }
+
+    interface IMYGenericProperties<T>
+    {
+        IEnumerable<T> GenericList { get; set; } 
+    }
+
+    public class MyGenericPropertiesClass<T>
+    {
+        public IEnumerable<T> GenericList { get; set; }
+    }
+
     [TestClass]
     public class GenericParameter_Test
     {
@@ -27,7 +38,36 @@ namespace TS.CodeGenerator.tests
             //assert
             Assert.IsTrue(res.Contains("GetT?(input:T/*T*/):JQueryPromise<T>;"));
         }
+        [TestMethod]
+        public void TestGenericProperty()
+        {
+            //arrange
+            var c = typeof(IMYGenericProperties<>);
+            var gen = new TSGenerator(c.Assembly);
+
+            //act
+            gen.AddInterface(c);
+            var res = gen.ToTSString();
+
+            //assert
+            Assert.IsTrue(res.Contains("GenericList: T[];"));
+        }
+        [TestMethod]
+        public void TestGenericPropertyClass()
+        {
+            //arrange
+            var c = typeof(MyGenericPropertiesClass<>);
+            var gen = new TSGenerator(c.Assembly);
+
+            //act
+            gen.AddInterface(c);
+            var res = gen.ToTSString();
+
+            //assert
+            Assert.IsTrue(res.Contains("GenericList: T[];"));
+        }
     
+
         [TestMethod]
         public void TestMethod2()
         {

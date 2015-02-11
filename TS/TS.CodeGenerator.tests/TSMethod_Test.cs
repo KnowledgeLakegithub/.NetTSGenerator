@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace TS.CodeGenerator.tests
+{
+    
+
+    public interface IMethodClass
+    {
+        string MyMethod(int parm1, string parm2);
+    }
+
+  
+    [TestClass]
+    public class TSMethod_Test
+    {
+        [TestMethod]
+        public void Test_MethodCLassMethod()
+        {
+            //arrange
+              var gen = new TSInterface(typeof (IMethodClass), (t) => Settings.StartingTypeMap[t]);
+            gen.Initialize();
+            //act
+            var res = gen.ToTSString();
+
+            //assert
+            Assert.IsTrue(res.Contains("MyMethod?(parm1:number/*Int32*/, parm2:string/*String*/):JQueryPromise<string>;"));
+        }
+
+        [TestMethod]
+        public void Test_TSMethod()
+        {
+            //arrange
+            var gen = new TSMethod(typeof(IMethodClass).GetMethod("MyMethod"), (t) => Settings.StartingTypeMap[t]);
+            gen.Initialize();
+            //act
+            var res = gen.ToTSString();
+
+            //assert
+            Assert.IsTrue(res.Contains("MyMethod?(parm1:number/*Int32*/, parm2:string/*String*/):JQueryPromise<string>;"));
+        }
+    
+       
+
+
+    }
+}

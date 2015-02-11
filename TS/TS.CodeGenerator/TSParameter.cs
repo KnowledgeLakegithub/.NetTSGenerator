@@ -3,23 +3,30 @@ using System.Reflection;
 
 namespace TS.CodeGenerator
 {
-    public class TSParameter
+    public class TSParameter : IGenerateTS
     {
-        private readonly ParameterInfo _pi;
+        private readonly ParameterInfo _parameterInfo;
+        private readonly Func<Type, string> _mapType;
 
-        public TSParameter(ParameterInfo pi, Func<Type, string> mapType)
+        public TSParameter(ParameterInfo parameterInfo, Func<Type, string> mapType)
         {
-            _pi = pi;
-            ParameterName = pi.Name;
-            ParameterType = mapType(pi.ParameterType);
+            _parameterInfo = parameterInfo;
+            _mapType = mapType;
+            ParameterName = parameterInfo.Name;
+
         }
         public string ParameterName { get; private set; }
         public string ParameterType { get; private set; }
 
         private const string formatParameter = @"{0}:{1}/*{2}*/";
-        public override string ToString()
+        public void Initialize()
         {
-            var res = string.Format(formatParameter, ParameterName, ParameterType, _pi.ParameterType.Name);
+            ParameterType = _mapType(_parameterInfo.ParameterType);
+        }
+
+        public string ToTSString()
+        {
+            var res = string.Format(formatParameter, ParameterName, ParameterType, _parameterInfo.ParameterType.Name);
             return res;
         }
     }
