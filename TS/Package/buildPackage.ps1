@@ -1,0 +1,1 @@
+../.nuget/nuget.exe pack TS.CodeGenerator.nuspec -OutputDirectory ./Published

@@ -1,25 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.CodeGenerator", "TS.CodeGenerator\TS.CodeGenerator.csproj", "{D600FBC8-653A-4B68-A256-ABD9810D327A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.CodeGenerator.tests", "TS.CodeGenerator.tests\TS.CodeGenerator.tests.csproj", "{7079192E-6AC5-4D0C-B412-B8EFDE7DCF8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib.test.a.b", "lib.test.a.b\lib.test.a.b.csproj", "{4F56D213-E1AE-48D2-8DF7-91AFC678C4A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F7338BBD-EF0A-403E-9E5D-C483D9BE4537}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{598E466D-C7CA-4733-A257-8E8878BAFEF7}"
+	ProjectSection(SolutionItems) = preProject
+		Package\Generate_dts.ps1 = Package\Generate_dts.ps1
+		Package\Install.ps1 = Package\Install.ps1
+		Package\TS.CodeGenerator.nuspec = Package\TS.CodeGenerator.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Published", "Published", "{F2BD7BDF-7F41-4334-8E1D-008E00FE11FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68B39E65-B019-441E-B32E-5EC0216DDDC5}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://devtfs:8080/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = TS.CodeGenerator\\TS.CodeGenerator.csproj
-		SccProjectName1 = TS.CodeGenerator
-		SccLocalPath1 = TS.CodeGenerator
-		SccProjectUniqueName2 = TS.CodeGenerator.tests\\TS.CodeGenerator.tests.csproj
-		SccProjectName2 = TS.CodeGenerator.tests
-		SccLocalPath2 = TS.CodeGenerator.tests
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -33,8 +39,15 @@ Global
 		{7079192E-6AC5-4D0C-B412-B8EFDE7DCF8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7079192E-6AC5-4D0C-B412-B8EFDE7DCF8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7079192E-6AC5-4D0C-B412-B8EFDE7DCF8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F56D213-E1AE-48D2-8DF7-91AFC678C4A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F56D213-E1AE-48D2-8DF7-91AFC678C4A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F56D213-E1AE-48D2-8DF7-91AFC678C4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F56D213-E1AE-48D2-8DF7-91AFC678C4A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2BD7BDF-7F41-4334-8E1D-008E00FE11FA} = {598E466D-C7CA-4733-A257-8E8878BAFEF7}
 	EndGlobalSection
 EndGlobal

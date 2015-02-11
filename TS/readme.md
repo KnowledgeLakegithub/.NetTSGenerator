@@ -1,5 +1,8 @@
 This will build a d.ts file from a .net assembly.
 
+Now In Nuget Form:
+[https://www.nuget.org/packages/TS.CodeGenerator]
+
 example post build step ps1:
 
 execute: powershell -file "$(SolutionDir)\MY.Contracts\build_dts.ps1"
