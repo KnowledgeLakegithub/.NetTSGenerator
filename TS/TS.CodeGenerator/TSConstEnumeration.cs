@@ -12,6 +12,8 @@ namespace TS.CodeGenerator
         public List<string> EnumNames;
         public string Name;
         private Type _type;
+        public bool IsExported { get; set; }
+        public string ModuleName { get; set; }
 
         public TSConstEnumeration(Type enumType)
         {
@@ -19,6 +21,7 @@ namespace TS.CodeGenerator
                 throw new Exception("Must be an enum");
             _type = enumType;
             Name = enumType.Name;
+            ModuleName = enumType.Namespace;
             EnumNames = enumType.GetEnumNames().ToList();
         }
 
@@ -32,6 +35,7 @@ namespace TS.CodeGenerator
             var enums = string.Join("," + Settings.EndOfLine + "\t", EnumNames);
             var formatString = "/*{0}*/"
                 + Settings.EndOfLine
+                + (IsExported ? "export " : string.Empty)
                 + "const enum {1} {{" + Settings.EndOfLine
                 + "\t{2}"
                 + Settings.EndOfLine

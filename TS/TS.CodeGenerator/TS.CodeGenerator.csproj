@@ -45,11 +45,13 @@
   <ItemGroup>
     <Compile Include="AssemblyReader.cs" />
     <Compile Include="IGenerateTS.cs" />
+    <Compile Include="NamespaceAssemblyReader.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="TSConstEnumeration.cs" />
     <Compile Include="TSGenerator.cs" />
     <Compile Include="TSGenericParameter.cs" />
     <Compile Include="TSMethod.cs" />
+    <Compile Include="TSModule.cs" />
     <Compile Include="TSParameter.cs" />
     <Compile Include="TSProperty.cs" />
     <Compile Include="IAssemblyReader.cs" />

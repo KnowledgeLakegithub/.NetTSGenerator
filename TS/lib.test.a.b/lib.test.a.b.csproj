@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>lib.test.a.b</RootNamespace>
     <AssemblyName>lib.test.a.b</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,8 @@
     <Compile Include="ITestGenericClass.cs" />
     <Compile Include="MYPONO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vehicals\ThreeWheeled\Spider.cs" />
+    <Compile Include="Vehicals\TwoWheeled\MotorCycles\Harley.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Generate_dts.ps1" />

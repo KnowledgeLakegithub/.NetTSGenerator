@@ -55,6 +55,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GenericParameter_Test.cs" />
+    <Compile Include="NamespaceAssemblyReader_Tests.cs" />
     <Compile Include="TSInterfact_test.cs" />
     <Compile Include="TSMethod_Test.cs" />
     <Compile Include="TSEnumeration_tests.cs" />
@@ -62,6 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\lib.test.a.b\lib.test.a.b.csproj">
+      <Project>{4f56d213-e1ae-48d2-8df7-91afc678c4a9}</Project>
+      <Name>lib.test.a.b</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TS.CodeGenerator\TS.CodeGenerator.csproj">
       <Project>{d600fbc8-653a-4b68-a256-abd9810d327a}</Project>
       <Name>TS.CodeGenerator</Name>

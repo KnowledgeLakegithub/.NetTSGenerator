@@ -5,14 +5,14 @@ using System.Reflection;
 
 namespace TS.CodeGenerator
 {
-    public class TSInterface:IGenerateTS
+    public class TSInterface : IGenerateTS
     {
         private const string formatInterface =
 @"
 /*{0}*/
-interface {1}{2}{{
-{3}
+{1}interface {2}{3}{{
 {4}
+{5}
 }}
 ";
         private Type _type;
@@ -22,7 +22,7 @@ interface {1}{2}{{
         {
             _type = type;
             _mapType = mapType;
-
+            ModuleName = type.Namespace;
             //Methods = new List<TSMethod>();
             var name = type.IsGenericType
                             ? type.Name.Split(new[] { '`' }).First()
@@ -43,8 +43,8 @@ interface {1}{2}{{
             //generic
             //if (_type.IsGenericType)
             //{
-                GenericParameters = _type.GetGenericArguments().Select(a => new TSGenericParameter(a, _mapType)).ToList();
-           // }
+            GenericParameters = _type.GetGenericArguments().Select(a => new TSGenericParameter(a, _mapType)).ToList();
+            // }
 
             //methods
             var methods = _type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly).Where(x => !x.IsSpecialName);
@@ -52,12 +52,13 @@ interface {1}{2}{{
         }
 
         public List<Type> Interfaces { get; set; }
-
+        public bool IsExported { get; set; }
         public string InterFaceName { get; private set; }
         public List<string> DerivedInterfaces { get; private set; }
         public List<TSProperty> Properties { get; private set; }
         public List<TSMethod> Methods { get; private set; }
         public List<TSGenericParameter> GenericParameters { get; set; }
+        public string ModuleName { get; set; }
 
         public bool IsGenericMetaClass
         {
@@ -100,7 +101,7 @@ interface {1}{2}{{
 
         public string ToTSString()
         {
-          
+
             string derived = string.Empty;
 
             if (DerivedInterfaces != null && DerivedInterfaces.Count > 0)
@@ -110,13 +111,19 @@ interface {1}{2}{{
 
             string properties = Properties == null || Properties.Count == 0
                                 ? string.Empty
-                                : "  /*properties*/" + Settings.EndOfLine 
+                                : "  /*properties*/" + Settings.EndOfLine
                                 + "\t" + string.Join(Settings.EndOfLine + "\t", Properties.Select(p => p.ToTSString()));
             string methodes = Methods == null || Methods.Count == 0
                                 ? string.Empty
-                                : "  /*methods*/" + Settings.EndOfLine 
+                                : "  /*methods*/" + Settings.EndOfLine
                                 + "\t" + string.Join(Settings.EndOfLine + "\t", Methods.Select(m => m.ToTSString()));
-            string result = string.Format(formatInterface, _type.FullName, InterFaceName, derived, properties, methodes);
+            string result = string.Format(formatInterface,
+                                            _type.FullName,
+                                            IsExported ? "export " : string.Empty,
+                                            InterFaceName,
+                                            derived,
+                                            properties,
+                                            methodes);
             return result;
         }
     }

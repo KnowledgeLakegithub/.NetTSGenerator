@@ -11,6 +11,7 @@ namespace TS.CodeGenerator
         private Dictionary<Type, string> _typeMap;
         private Dictionary<Type, TSInterface> _interfaceMap;
         private Dictionary<Type, TSConstEnumeration> _enumerationsMap;
+        public bool Modules { get; set; }
         public TSGenerator(Assembly currentAssembly)
         {
             _enumerationsMap = new Dictionary<Type, TSConstEnumeration>();
@@ -39,7 +40,8 @@ namespace TS.CodeGenerator
             if (!_typeMap.ContainsKey(type))
             {
                 AddEnumeration(type);
-                _addTypeMap(type, _enumerationsMap[type].Name);
+                var e = _enumerationsMap[type];
+                _addTypeMap(type, Modules ? e.ModuleName + "." + e.Name : e.Name);
             }
 
             return true;
@@ -68,7 +70,7 @@ namespace TS.CodeGenerator
                 catch
                 {
                     if (!_typeMap.ContainsKey(type))
-                       _addTypeMap(type, Types.Any);
+                        _addTypeMap(type, Types.Any);
                 }
             }
 
@@ -95,7 +97,7 @@ namespace TS.CodeGenerator
 
                 return false;
 
-           _addTypeMap(type, type.Name);
+            _addTypeMap(type,  type.Name);
             return true;
         }
 
@@ -109,10 +111,12 @@ namespace TS.CodeGenerator
             }
 
             AddInterface(type);
-            _addTypeMap(type, _interfaceMap[type].InterFaceName);
+            var itf = _interfaceMap[type];
+            _addTypeMap(type, Modules ? itf.ModuleName + "." + itf.InterFaceName : itf.InterFaceName);
 
             return true;
         }
+
         public string GenerateLookupTypeName(Type type)
         {
             //quickly map simple type maps

@@ -13,6 +13,11 @@ namespace TS.CodeGenerator
 
         public AssemblyReader(string dllPath)
         {
+            if (!File.Exists(dllPath))
+            {
+                throw new Exception("DLL attempting to generate " + dllPath + " Does NOT EXIST");
+            }
+
             _resolveDirectory = Path.GetDirectoryName(dllPath);
             var files = Directory.EnumerateFiles(_resolveDirectory, "*.dll");
             var fi = new FileInfo(dllPath);
