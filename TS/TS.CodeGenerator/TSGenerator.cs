@@ -10,24 +10,46 @@ namespace TS.CodeGenerator
         private readonly Assembly _currentAssembly;
         private Dictionary<Type, string> _typeMap;
         private Dictionary<Type, TSInterface> _interfaceMap;
+        private Dictionary<Type, TSConstEnumeration> _enumerationsMap;
         public TSGenerator(Assembly currentAssembly)
         {
+            _enumerationsMap = new Dictionary<Type, TSConstEnumeration>();
             _typeMap = new Dictionary<Type, string>(Settings.StartingTypeMap);
             _interfaceMap = new Dictionary<Type, TSInterface>();
             _currentAssembly = currentAssembly;
 
         }
-        public string GenerateLookupTypeName(Type type)
-        {
-            //todo generate enums?
-            if (type.IsEnum)
-                return Types.Any;
 
-            //quickly map simple type maps
+        private void _addTypeMap(Type type, string name)
+        {
             if (_typeMap.ContainsKey(type))
+                return;
+            _typeMap.Add(type, name);
+        }
+
+        private bool _handleIfEnum(Type type)
+        {
+            if (!type.IsEnum)
+                return false;
+
+
+            if (!Settings.ConstEnumsEnabled)
+                _typeMap.Add(type, Types.Any);
+
+            if (!_typeMap.ContainsKey(type))
             {
-                return _typeMap[type];
+                AddEnumeration(type);
+                _addTypeMap(type, _enumerationsMap[type].Name);
             }
+
+            return true;
+
+        }
+
+        private bool _handleIfGenericEnumerable(Type type)
+        {
+            if (!IsGenericEnumerable(type))
+                return false;
 
             //allow only generic enumerables
             //generic array first
@@ -39,44 +61,80 @@ namespace TS.CodeGenerator
                         ? type.GetElementType()
                         : type.GetGenericArguments().Single();
                     var name = GenerateLookupTypeName(typeOfElements) + "[]";
-                    if (!_typeMap.ContainsKey(type))
-                        _typeMap.Add(type, name);
-                    return name;
+
+                    _addTypeMap(type, name);
+
                 }
                 catch
                 {
-                    return Types.Any;
+                    if (!_typeMap.ContainsKey(type))
+                       _addTypeMap(type, Types.Any);
                 }
             }
-            //standard aray
-            if (type.IsArray)
-            {
-                var typeOfElements = type.GetElementType();
-                var name = GenerateLookupTypeName(typeOfElements) + "[]";
-                if (!_typeMap.ContainsKey(type))
-                    _typeMap.Add(type, name);
-                return name;
-            }
-            if (type.IsGenericParameter)
-            {
-                return type.Name;
-            }
-            if (!Settings.FollowExternalAssemblies)
+
+            return true;
+        }
+
+        private bool _handleIfArray(Type type)
+        {
+            //standard array
+            if (!type.IsArray)
+                return false;
+
+
+            var typeOfElements = type.GetElementType();
+            var name = GenerateLookupTypeName(typeOfElements) + "[]";
+
+            _addTypeMap(type, name);
+            return true;
+        }
+
+        private bool _handleIfGenericParameter(Type type)
+        {
+            if (!type.IsGenericParameter)
+
+                return false;
+
+           _addTypeMap(type, type.Name);
+            return true;
+        }
+
+        private bool _handleIfClassOrInterface(Type type)
+        {
+            if (!Settings.FollowExternalAssemblies && (type.Assembly != _currentAssembly))
             {
                 //anything from other assemblies are any
-                if (type.Assembly != _currentAssembly)
-                    return Types.Any;
-
-            }
-            if (_interfaceMap.ContainsKey(type))
-            {
-                return _interfaceMap[type].InterFaceName;
+                _addTypeMap(type, Types.Any);
+                return true;
             }
 
             AddInterface(type);
+            _addTypeMap(type, _interfaceMap[type].InterFaceName);
 
-            return _interfaceMap[type].InterFaceName;
+            return true;
+        }
+        public string GenerateLookupTypeName(Type type)
+        {
+            //quickly map simple type maps
+            if (_typeMap.ContainsKey(type))
+                return _typeMap[type];
 
+            if (_handleIfEnum(type))
+                return _typeMap[type];
+
+            if (_handleIfGenericEnumerable(type))
+                return _typeMap[type];
+
+            if (_handleIfArray(type))
+                return _typeMap[type];
+
+            if (_handleIfGenericParameter(type))
+                return _typeMap[type];
+
+            if (_handleIfClassOrInterface(type))
+                return _typeMap[type];
+
+            return Types.Any;
         }
 
         class InterfaceComparer : IEqualityComparer<TSInterface>
@@ -94,7 +152,7 @@ namespace TS.CodeGenerator
 
         public void Initialize()
         {
-           
+
         }
 
         public string ToTSString()
@@ -105,7 +163,10 @@ namespace TS.CodeGenerator
 
 
             var strs = interfaces.Select(v => v.ToTSString());
-            return string.Join(Settings.EndOfLine, strs);
+            var ints = string.Join(Settings.EndOfLine, strs);
+            var enums = string.Join(Settings.EndOfLine, _enumerationsMap.Values.Select(en => en.ToTSString()));
+
+            return ints + Settings.EndOfLine + enums;
         }
 
 
@@ -118,6 +179,19 @@ namespace TS.CodeGenerator
             return genType == typeof(IEnumerable<>) || genType == typeof(IList<>);
 
         }
+
+        public void AddEnumeration(Type enumeration)
+        {
+            if (_enumerationsMap.ContainsKey(enumeration))
+            {
+                return;
+            }
+
+            var enumerationTS = new TSConstEnumeration(enumeration);
+            _enumerationsMap.Add(enumeration, enumerationTS);
+            enumerationTS.Initialize();
+        }
+
 
 
         public void AddInterface(Type type)

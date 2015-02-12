@@ -29,7 +29,7 @@ interface {1}{2}{{
                             : type.Name;
             InterFaceName = type.IsInterface
                             ? name
-                            : string.Format("I{0}", name);
+                            : string.Format(Settings.InterfaceFormat, name);
 
             //interfaces
             Interfaces = _type.GetInterfaces().Where(i => i.Assembly == _type.Assembly && i.Name != InterFaceName).ToList();

@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace TS.CodeGenerator
 {
@@ -35,8 +36,18 @@ namespace TS.CodeGenerator
             _generator = new TSGenerator(asm);
 
 
-            foreach (var type in asm.GetTypes().Where(t => !t.IsEnum && t.IsPublic))
+            foreach (var type in asm.GetTypes().Where(t =>  t.IsPublic))
             {
+                if (type.IsEnum)
+                {
+                    if (Settings.ConstEnumsEnabled)
+                    {
+                        _generator.AddEnumeration(type);
+                    }
+                    continue;
+                }
+               
+
                 _generator.AddInterface(type);
             }
 

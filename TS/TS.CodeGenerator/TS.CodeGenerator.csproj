@@ -46,6 +46,7 @@
     <Compile Include="AssemblyReader.cs" />
     <Compile Include="IGenerateTS.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="TSConstEnumeration.cs" />
     <Compile Include="TSGenerator.cs" />
     <Compile Include="TSGenericParameter.cs" />
     <Compile Include="TSMethod.cs" />

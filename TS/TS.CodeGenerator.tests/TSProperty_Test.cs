@@ -10,6 +10,13 @@ namespace TS.CodeGenerator.tests
         public T ID { get; set; }
     }
 
+    public enum Sex
+    {
+        Bob,
+        NotBob,
+        NoSay
+    }
+
     public class testClass1<T>:GenericObj<Guid>
     {
         public string Prop1 { get; set; }
@@ -24,7 +31,8 @@ namespace TS.CodeGenerator.tests
         public BigClassInherited[] Prop9 { get; set; }
         public IEnumerable<BigClassInherited> Prop10 { get; set; }
         public T Prop11 { get; set; }
-        public IEnumerable<T> Prop12 { get; set; } 
+        public IEnumerable<T> Prop12 { get; set; }
+        public Sex Prop13 { get; set; }
     }
 
     public class BigClassInherited : IInterfaceClass
@@ -85,6 +93,7 @@ namespace TS.CodeGenerator.tests
         {
 
             //arrange
+            Settings.ConstEnumsEnabled = true;
             var c = typeof(testClass1<>);
             var gen = new TSGenerator(c.Assembly);
 
