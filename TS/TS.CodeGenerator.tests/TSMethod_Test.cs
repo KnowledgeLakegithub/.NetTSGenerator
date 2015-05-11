@@ -9,7 +9,7 @@ namespace TS.CodeGenerator.tests
 
     public interface IMethodClass
     {
-        string MyMethod(int parm1, string parm2);
+        string MyMethod(int parm1, string parm2, Guid? param3);
     }
 
   
@@ -26,7 +26,7 @@ namespace TS.CodeGenerator.tests
             var res = gen.ToTSString();
 
             //assert
-            Assert.IsTrue(res.Contains("MyMethod?(parm1:number/*Int32*/, parm2:string/*String*/):JQueryPromise<string>;"));
+            Assert.IsTrue(res.Contains("MyMethod?(parm1:number/*Int32*/, parm2:string/*String*/, param3?:string/*Nullable`1*/):JQueryPromise<string>;"));
         }
 
         [TestMethod]

@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F7338B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{598E466D-C7CA-4733-A257-8E8878BAFEF7}"
 	ProjectSection(SolutionItems) = preProject
+		Package\buildPackage.ps1 = Package\buildPackage.ps1
 		Package\Generate_dts.ps1 = Package\Generate_dts.ps1
 		Package\Install.ps1 = Package\Install.ps1
 		Package\TS.CodeGenerator.nuspec = Package\TS.CodeGenerator.nuspec
@@ -22,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Published", "Published", "{
 	ProjectSection(SolutionItems) = preProject
 		Package\Published\TS.CodeGenerator.1.0.0.5.nupkg = Package\Published\TS.CodeGenerator.1.0.0.5.nupkg
 		Package\Published\TS.CodeGenerator.1.0.0.6.nupkg = Package\Published\TS.CodeGenerator.1.0.0.6.nupkg
+		Package\Published\TS.CodeGenerator.1.0.0.7.nupkg = Package\Published\TS.CodeGenerator.1.0.0.7.nupkg
+		Package\Published\TS.CodeGenerator.1.0.0.9.nupkg = Package\Published\TS.CodeGenerator.1.0.0.9.nupkg
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68B39E65-B019-441E-B32E-5EC0216DDDC5}"
