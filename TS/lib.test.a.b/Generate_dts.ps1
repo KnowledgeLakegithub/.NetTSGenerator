@@ -9,6 +9,8 @@ $rootDir = (get-item $pwd )
 #parameters
 $inputDLL = "lib.test.a.b.dll"
 $outFileName = "lib.test.a.b.d.ts"
+#todo make this find the proper path
+$codeGeneratorDLLPath = "..\packages\TS.CodeGenerator.1.0.0.12\tools\TS.CodeGenerator.dll"
 
 
 [Environment]::CurrentDirectory = $pwd
@@ -22,7 +24,7 @@ if (![System.IO.Directory]::Exists($dirDll)) {
 $dirDll = [System.IO.Path]::Combine($dirDll, $inputDLL)
 
 $filePath = ([System.IO.Path]::Combine($pwd, $outFileName))
-$cg = [System.IO.Path]::Combine($pwd, "..\packages\TS.CodeGenerator.1.0.0.9\tools\TS.CodeGenerator.dll");
+$cg = [System.IO.Path]::Combine($pwd, $codeGeneratorDLLPath);
 $libPath = ([System.IO.Path]::GetFullPath($cg));
 
 

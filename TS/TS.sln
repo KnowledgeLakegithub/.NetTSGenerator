@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Published", "Published", "{F2BD7BDF-7F41-4334-8E1D-008E00FE11FA}"
 	ProjectSection(SolutionItems) = preProject
 		Package\Published\TS.CodeGenerator.1.0.0.11.nupkg = Package\Published\TS.CodeGenerator.1.0.0.11.nupkg
+		Package\Published\TS.CodeGenerator.1.0.0.12.nupkg = Package\Published\TS.CodeGenerator.1.0.0.12.nupkg
 		Package\Published\TS.CodeGenerator.1.0.0.5.nupkg = Package\Published\TS.CodeGenerator.1.0.0.5.nupkg
 		Package\Published\TS.CodeGenerator.1.0.0.6.nupkg = Package\Published\TS.CodeGenerator.1.0.0.6.nupkg
 		Package\Published\TS.CodeGenerator.1.0.0.7.nupkg = Package\Published\TS.CodeGenerator.1.0.0.7.nupkg
