@@ -10,7 +10,7 @@ $rootDir = (get-item $pwd )
 $inputDLL = "lib.test.a.b.dll"
 $outFileName = "lib.test.a.b.d.ts"
 #todo make this find the proper path
-$codeGeneratorDLLPath = "..\packages\TS.CodeGenerator.1.0.0.12\tools\TS.CodeGenerator.dll"
+$codeGeneratorDLLPath = "..\packages\TS.CodeGenerator.1.0.0.14\tools\TS.CodeGenerator.dll"
 
 
 [Environment]::CurrentDirectory = $pwd
