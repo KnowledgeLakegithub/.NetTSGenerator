@@ -166,7 +166,7 @@ namespace TS.CodeGenerator
                 .Distinct(new InterfaceComparer());
 
 
-            var strs = interfaces.Select(v => v.ToTSString());
+            var strs = interfaces.Where(i => !Settings.IgnoreInterfaces.Contains(i.InterFaceName)).Select(v => v.ToTSString());
             var ints = string.Join(Settings.EndOfLine, strs);
             var enums = string.Join(Settings.EndOfLine, _enumerationsMap.Values.Select(en => en.ToTSString()));
 

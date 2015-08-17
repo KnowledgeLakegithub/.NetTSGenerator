@@ -50,7 +50,7 @@ namespace TS.CodeGenerator
                         + "}}"
                         + Settings.EndOfLine;
 
-            var allInterfaces = string.Join(Settings.EndOfLine, Interfaces.Select(i => i.ToTSString()));
+            var allInterfaces = string.Join(Settings.EndOfLine, Interfaces.Where(i => !Settings.IgnoreInterfaces.Contains(i.InterFaceName)).Select(i => i.ToTSString()));
             var allenums = string.Join(Settings.EndOfLine, Enumerations.Select(e => e.ToTSString()));
             var submods = string.Join(Settings.EndOfLine, SubModules.Select(m => m.ToTSString()));
             return string.Format(formats, Name, allenums, allInterfaces, submods);

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IShouldNotShowUp.cs" />
     <Compile Include="ITestGenericClass.cs" />
     <Compile Include="MYPONO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
