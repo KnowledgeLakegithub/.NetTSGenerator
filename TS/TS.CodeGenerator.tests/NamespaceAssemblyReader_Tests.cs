@@ -20,5 +20,21 @@ namespace TS.CodeGenerator.tests
             //assert
             Assert.IsNotNull(s);
         }
+
+        [TestMethod]
+        public void Test_IgnoreInterface()
+        {
+            //arrange
+            Settings.ConstEnumsEnabled = true;
+            Settings.IgnoreInterfaces.Add("IShouldNotShowUp");
+
+            var nsg = new NamespaceAssemblyReader(typeof(Harley<>).Assembly);
+            //act
+            var s = nsg.GenerateTypingsString();
+
+
+            //assert
+            Assert.IsTrue(!s.Contains("IShouldNotShowUp"));
+        }
     }
 }

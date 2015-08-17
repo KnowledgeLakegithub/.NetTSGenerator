@@ -48,6 +48,7 @@ namespace TS.CodeGenerator
                 {typeof (Single?),Types.Number},
                 {typeof (void), Types.Void}
             };
+            IgnoreInterfaces = new List<string>();
         }
 
         public static string MethodReturnTypeFormatString { get; set; }
@@ -57,6 +58,7 @@ namespace TS.CodeGenerator
         public static string EndOfLine { get; set; }
         public static bool ConstEnumsEnabled { get; set; }
         public static string InterfaceFormat { get; set; }
+        public static List<string> IgnoreInterfaces { get; private set; } 
     }
 
 }
