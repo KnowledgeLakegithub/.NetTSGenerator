@@ -9,8 +9,6 @@ $rootDir = (get-item $pwd )
 #parameters
 $inputDLL = "lib.test.a.b.dll"
 $outFileName = "lib.test.a.b.d.ts"
-#todo make this find the proper path
-$codeGeneratorDLLPath = "..\packages\TS.CodeGenerator.1.0.0.14\tools\TS.CodeGenerator.dll"
 
 
 [Environment]::CurrentDirectory = $pwd
@@ -24,7 +22,8 @@ if (![System.IO.Directory]::Exists($dirDll)) {
 $dirDll = [System.IO.Path]::Combine($dirDll, $inputDLL)
 
 $filePath = ([System.IO.Path]::Combine($pwd, $outFileName))
-$cg = [System.IO.Path]::Combine($pwd, $codeGeneratorDLLPath);
+$cg = [System.IO.Path]::Combine($pwd, "..\ts.codegenerator\bin\debug\TS.CodeGenerator.dll");
+#$cg = [System.IO.Path]::Combine($pwd, "..\packages\TS.CodeGenerator.1.0.0.14\tools\TS.CodeGenerator.dll");
 $libPath = ([System.IO.Path]::GetFullPath($cg));
 
 
@@ -36,7 +35,8 @@ Write-Host ""
 Write-Host ""
 Write-Host "Creating d.ts file from assembly: " $dirDll
 Write-Host ""
-$assemblyReader = new-object -Typename TS.CodeGenerator.AssemblyReader -ArgumentList $dirDll
+$asm= [Reflection.Assembly]::LoadFile($dirDll)
+$assemblyReader = new-object -Typename TS.CodeGenerator.NamespaceAssemblyReader -ArgumentList $asm
 #set parameters here
 $outStream = $assemblyReader.GenerateTypingsStream()
 
@@ -56,7 +56,7 @@ $outStream.Close();
 
 
 #Copy to as many places as you like
-$outPath = $rootDir.parent.FullName + "\" + $outFileName ;
+$outPath = $rootDir.parent.FullName + "..\test.web\scripts\typings\test\" + $outFileName ;
 Write-Host ""
 Write-Host "Copying generated dts: " + $outPath 
 Write-Host ""

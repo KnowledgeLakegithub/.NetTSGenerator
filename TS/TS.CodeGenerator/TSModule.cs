@@ -13,7 +13,7 @@ namespace TS.CodeGenerator
         public List<TSInterface> Interfaces { get; set; }
         public List<TSConstEnumeration> Enumerations { get; set; }
         public List<TSModule> SubModules { get; set; }
-
+        public bool IsDeclared { get; set; }
 
         public TSModule(string name, Func<Type, string> mapType)
         {
@@ -42,7 +42,8 @@ namespace TS.CodeGenerator
 
         public string ToTSString()
         {
-            var formats = "export module {0} {{"
+            var declarestring = IsDeclared ? " declare " : "export";
+            var formats = declarestring + " module {0} {{"
                         + Settings.EndOfLine
                         + "{1}" + Settings.EndOfLine
                         + "{2}" + Settings.EndOfLine
@@ -50,10 +51,11 @@ namespace TS.CodeGenerator
                         + "}}"
                         + Settings.EndOfLine;
 
-            var allInterfaces = string.Join(Settings.EndOfLine, Interfaces.Where(i => !Settings.IgnoreInterfaces.Contains(i.InterFaceName)).Select(i => i.ToTSString()));
-            var allenums = string.Join(Settings.EndOfLine, Enumerations.Select(e => e.ToTSString()));
-            var submods = string.Join(Settings.EndOfLine, SubModules.Select(m => m.ToTSString()));
-            return string.Format(formats, Name, allenums, allInterfaces, submods);
+            var indentedEOL = Settings.EndOfLine + Settings.Indentation;
+            var allInterfaces = string.Join(Settings.EndOfLine, Interfaces.Where(i => !Settings.IgnoreInterfaces.Contains(i.InterFaceName)).Select(i => i.ToTSString())).Replace(Settings.EndOfLine, indentedEOL);
+            var allenums = string.Join(Settings.EndOfLine, Enumerations.Select(e => e.ToTSString())).Replace(Settings.EndOfLine, indentedEOL);
+            var submods = string.Join(Settings.EndOfLine, SubModules.Select(m => m.ToTSString())).Replace(Settings.EndOfLine, indentedEOL);
+            return string.Format(formats, Name, allenums, allInterfaces, submods).Replace(Settings.EndOfLine, indentedEOL); 
         }
 
         public void AddSubNamespaceType(List<string> ns, Type type)

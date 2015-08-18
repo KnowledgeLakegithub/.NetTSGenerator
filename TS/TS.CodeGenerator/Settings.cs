@@ -13,6 +13,7 @@ namespace TS.CodeGenerator
             MakeMethodsOptional = true;
             FollowExternalAssemblies = false;
             EndOfLine = "\r\n";
+            Indentation = "\t";
             InterfaceFormat = "I{0}";
             MethodReturnTypeFormatString = "JQueryPromise<{0}>";
             StartingTypeMap = new Dictionary<Type, string>
@@ -50,6 +51,8 @@ namespace TS.CodeGenerator
             };
             IgnoreInterfaces = new List<string>();
         }
+
+        public static string Indentation { get; set; }
 
         public static string MethodReturnTypeFormatString { get; set; }
         public static bool MakeMethodsOptional { get; set; }

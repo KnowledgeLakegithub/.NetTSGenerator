@@ -22,7 +22,7 @@ if (![System.IO.Directory]::Exists($dirDll)) {
 $dirDll = [System.IO.Path]::Combine($dirDll, $inputDLL)
 
 $filePath = ([System.IO.Path]::Combine($pwd, $outFileName))
-$cg = [System.IO.Path]::Combine($pwd, "..\packages\TS.CodeGenerator.1.0.0.15\tools\TS.CodeGenerator.dll");
+$cg = [System.IO.Path]::Combine($pwd, "..\packages\TS.CodeGenerator.1.0.0.9\tools\TS.CodeGenerator.dll");
 $libPath = ([System.IO.Path]::GetFullPath($cg));
 
 
@@ -35,10 +35,6 @@ Write-Host ""
 Write-Host "Creating d.ts file from assembly: " $dirDll
 Write-Host ""
 $assemblyReader = new-object -Typename TS.CodeGenerator.AssemblyReader -ArgumentList $dirDll
-#or do this
-#$asm= [Reflection.Assembly]::LoadFile($dirDll)
-#$assemblyReader = new-object -Typename TS.CodeGenerator.NamespaceAssemblyReader -ArgumentList $asm
-
 #set parameters here
 $outStream = $assemblyReader.GenerateTypingsStream()
 

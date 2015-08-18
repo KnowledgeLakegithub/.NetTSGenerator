@@ -44,7 +44,8 @@ namespace TS.CodeGenerator
 
                 if (!_namespaces.ContainsKey(root))
                 {
-                    _namespaces.Add(root, new TSModule(root, _generator.GenerateLookupTypeName));
+                    var module = new TSModule(root, _generator.GenerateLookupTypeName) {IsDeclared = true};
+                    _namespaces.Add(root, module);
                 }
                 ns.RemoveAt(0);
                 _namespaces[root].AddSubNamespaceType(ns, type);
