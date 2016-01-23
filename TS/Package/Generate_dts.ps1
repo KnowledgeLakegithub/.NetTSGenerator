@@ -22,7 +22,7 @@ if (![System.IO.Directory]::Exists($dirDll)) {
 $dirDll = [System.IO.Path]::Combine($dirDll, $inputDLL)
 
 $filePath = ([System.IO.Path]::Combine($pwd, $outFileName))
-$cg = [System.IO.Path]::Combine($pwd, "..\packages\TS.CodeGenerator.1.0.0.15\tools\TS.CodeGenerator.dll");
+$cg = [System.IO.Path]::Combine($pwd, "..\packages\TS.CodeGenerator.1.0.0.17\tools\TS.CodeGenerator.dll");
 $libPath = ([System.IO.Path]::GetFullPath($cg));
 
 
