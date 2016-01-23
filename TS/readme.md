@@ -42,6 +42,10 @@ Write-Host "Loading Generator " $libPath
 Write-Host ""
 [Reflection.Assembly]::LoadFile($libPath)
 
+#example settings
+[TS.CodeGenerator.Settings]::MethodReturnTypeFormatString = "Promise<{0}>"
+[TS.CodeGenerator.Settings]::ConstEnumsEnabled = $true;
+
 Write-Host ""
 Write-Host "Creating d.ts file from assembly: " $dirDll
 Write-Host ""

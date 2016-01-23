@@ -36,7 +36,7 @@ namespace TS.CodeGenerator
             var formatString = "/*{0}*/"
                 + Settings.EndOfLine
                 + (IsExported ? "export " : string.Empty)
-                + "const enum {1} {{" + Settings.EndOfLine
+                + "declare const enum {1} {{" + Settings.EndOfLine
                 + "\t{2}"
                 + Settings.EndOfLine
                 + "}}" + Settings.EndOfLine;
