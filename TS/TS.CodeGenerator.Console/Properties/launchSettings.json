@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "TS.CodeGenerator.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "\"..\\..\\..\\KnowledgeGraph.Domain\\bin\\Debug\\netstandard1.4\\KnowledgeGraph.Domain.dll\"  ..\\..\\..\\KnowledgeGraph.ETL.Runtime.JS.Axioms\\Scripts\\typings\\kl\\knowledgegraph.d.ts"
+    },
+    "newProfile1": {
+      "commandName": "Executable"
+    }
+  }
+}
