@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TS.CodeGenerator.Core\TS.CodeGenerator.Core.csproj" />
+    <ProjectReference Include="..\TS.CodeGenerator.Core\TS.CodeGenerator.csproj" />
   </ItemGroup>
 
 </Project>

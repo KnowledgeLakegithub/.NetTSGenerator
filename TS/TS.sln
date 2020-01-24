@@ -3,42 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F7338BBD-EF0A-403E-9E5D-C483D9BE4537}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Package", "Package", "{598E466D-C7CA-4733-A257-8E8878BAFEF7}"
-	ProjectSection(SolutionItems) = preProject
-		Package\buildPackage.ps1 = Package\buildPackage.ps1
-		Package\Generate_dts.ps1 = Package\Generate_dts.ps1
-		Package\Install.ps1 = Package\Install.ps1
-		Package\TS.CodeGenerator.nuspec = Package\TS.CodeGenerator.nuspec
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Published", "Published", "{F2BD7BDF-7F41-4334-8E1D-008E00FE11FA}"
-	ProjectSection(SolutionItems) = preProject
-		Package\Published\TS.CodeGenerator.1.0.0.17.nupkg = Package\Published\TS.CodeGenerator.1.0.0.17.nupkg
-		Package\Published\TS.CodeGenerator.1.0.0.5.nupkg = Package\Published\TS.CodeGenerator.1.0.0.5.nupkg
-		Package\Published\TS.CodeGenerator.1.0.0.6.nupkg = Package\Published\TS.CodeGenerator.1.0.0.6.nupkg
-		Package\Published\TS.CodeGenerator.1.0.0.7.nupkg = Package\Published\TS.CodeGenerator.1.0.0.7.nupkg
-		Package\Published\TS.CodeGenerator.1.0.0.9.nupkg = Package\Published\TS.CodeGenerator.1.0.0.9.nupkg
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68B39E65-B019-441E-B32E-5EC0216DDDC5}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.CodeGenerator.Core", "TS.CodeGenerator.Core\TS.CodeGenerator.Core.csproj", "{68EE1E06-B7F5-4A4B-840D-A3BA06B8B3AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TS.CodeGenerator", "TS.CodeGenerator.Core\TS.CodeGenerator.csproj", "{68EE1E06-B7F5-4A4B-840D-A3BA06B8B3AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib.test.a.b", "lib.test.a.b\lib.test.a.b.csproj", "{BE86A0E4-C60D-4F4E-A29C-450F6378A0A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lib.test.a.b", "lib.test.a.b\lib.test.a.b.csproj", "{BE86A0E4-C60D-4F4E-A29C-450F6378A0A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.CodeGenerator.Tests.Core", "TS.CodeGenerator.Tests.Core\TS.CodeGenerator.Tests.Core.csproj", "{A373BD72-BF81-4C6A-95FC-915905ABEE81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TS.CodeGenerator.Tests.Core", "TS.CodeGenerator.Tests.Core\TS.CodeGenerator.Tests.Core.csproj", "{A373BD72-BF81-4C6A-95FC-915905ABEE81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TS.CodeGenerator.Console", "TS.CodeGenerator.Console\TS.CodeGenerator.Console.csproj", "{F09C2370-43FF-4A68-8D04-8454D33D30D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TS.CodeGenerator.Console", "TS.CodeGenerator.Console\TS.CodeGenerator.Console.csproj", "{F09C2370-43FF-4A68-8D04-8454D33D30D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,7 +42,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F2BD7BDF-7F41-4334-8E1D-008E00FE11FA} = {598E466D-C7CA-4733-A257-8E8878BAFEF7}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76B23EBF-E089-43D1-8256-0E375782C88D}
 	EndGlobalSection
 EndGlobal

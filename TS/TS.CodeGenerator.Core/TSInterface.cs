@@ -41,6 +41,11 @@ namespace TS.CodeGenerator
             var props = ti.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
             Properties = props.Select(p => new TSProperty(p, _mapType)).ToList();
 
+            //fields, not properties
+            var fields = ti.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+            var addp = fields.Select(f => new TSProperty(f, _mapType)).ToList();
+            Properties.AddRange(addp);
+
             //generic
             //if (_type.IsGenericType)
             //{

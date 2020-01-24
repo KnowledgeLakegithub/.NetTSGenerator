@@ -34,6 +34,22 @@ namespace TS.CodeGenerator.tests
         public T Prop11 { get; set; }
         public IEnumerable<T> Prop12 { get; set; }
         public Sex Prop13 { get; set; }
+        //not really properties
+
+        public string Prop1_1;
+        public int Prop2_1;
+        public float Prop3_1;
+        public DateTime Prop4_1;
+        public DateTime? Prop41_1;
+        public BigClassInherited Prop5_1;
+        public List<BigClassInherited> Prop6_1;
+        public List<int> Prop7_1;
+        public float[] Prop8_1;
+        public BigClassInherited[] Prop9_1;
+        public IEnumerable<BigClassInherited> Prop10_1;
+        public T Prop11_1;
+        public IEnumerable<T> Prop12_1;
+        public Sex Prop13_1;
     }
 
     public class BigClassInherited : IInterfaceClass
@@ -66,6 +82,7 @@ namespace TS.CodeGenerator.tests
             //arrange
             var c = typeof(testClass1<>);
             var prop = new TSProperty(c.GetTypeInfo().GetProperties()[0], (t) => "string");
+            prop.Initialize();
 
             //act
             var res = prop.ToTSString();
@@ -81,6 +98,7 @@ namespace TS.CodeGenerator.tests
             //arrange
             var c = typeof(testClass1<>);
             var prop = new TSInterface(c, (t) => "string");
+            prop.Initialize();
 
             //act
             var res = prop.ToTSString();

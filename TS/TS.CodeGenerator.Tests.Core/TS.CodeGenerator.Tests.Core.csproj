@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>    
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\lib.test.a.b\lib.test.a.b.csproj" />
-    <ProjectReference Include="..\TS.CodeGenerator.Core\TS.CodeGenerator.Core.csproj" />
+    <ProjectReference Include="..\TS.CodeGenerator.Core\TS.CodeGenerator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

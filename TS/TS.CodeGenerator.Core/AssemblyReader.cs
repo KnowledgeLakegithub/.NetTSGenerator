@@ -24,7 +24,12 @@ namespace TS.CodeGenerator
             var files = Directory.EnumerateFiles(_resolveDirectory, "*.dll");
             var fi = new FileInfo(dllPath);
 
+#if NET462
+            Assembly asm = Assembly.LoadFile(fi.FullName);
+#else
             Assembly asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(fi.FullName);
+
+#endif
 
             //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             //AppDomain.CurrentDomain.SetupInformation.PrivateBinPath = dir;

@@ -3,19 +3,27 @@ using System.Reflection;
 
 namespace TS.CodeGenerator
 {
-    public class TSProperty:IGenerateTS
+    public class TSProperty : IGenerateTS
     {
-        private readonly PropertyInfo _propertyInfo;
         private readonly Func<Type, string> _mapType;
+        private Type _type;
 
-        public TSProperty(PropertyInfo propertyInfo, Func<Type,string> mapType )
+        public TSProperty(PropertyInfo propertyInfo, Func<Type, string> mapType)
         {
-            _propertyInfo = propertyInfo;
             _mapType = mapType;
 
+            _type = propertyInfo.PropertyType;
             PropertyName = propertyInfo.Name;
-            
-            
+
+
+        }
+        public TSProperty(FieldInfo finfo, Func<Type, string> mapType)
+        {
+            _mapType = mapType;
+            _type = finfo.FieldType;
+            PropertyName = finfo.Name;
+
+
         }
 
         public string PropertyName { get; private set; }
@@ -23,27 +31,27 @@ namespace TS.CodeGenerator
 
         public void Initialize()
         {
-            PropertyType = _propertyInfo.PropertyType.IsGenericParameter
-                            ? _propertyInfo.PropertyType.Name
-                            : _mapType(_propertyInfo.PropertyType);
+            PropertyType = _type.IsGenericParameter
+                ? _type.Name
+                : _mapType(_type);
         }
 
         public string ToTSString()
         {
-            return string.Format(isNullable() 
-                    ? "{0}?: {1}; /*{2}*/" 
-                    : "{0}: {1}; /*{2}*/", 
-                    PropertyName, 
-                    PropertyType, 
-                    _propertyInfo.PropertyType);
+            return string.Format(isNullable()
+                    ? "{0}?: {1}; /*{2}*/"
+                    : "{0}: {1}; /*{2}*/",
+                    PropertyName,
+                    PropertyType,
+                    _type);
         }
 
         private bool isNullable()
         {
-            var pt = _propertyInfo.PropertyType;
+            var pt = _type;
             var pti = pt.GetTypeInfo();
             return pti.IsGenericType &&
-                   pt.GetGenericTypeDefinition() == typeof (Nullable<>);
+                   pt.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
     }
 
