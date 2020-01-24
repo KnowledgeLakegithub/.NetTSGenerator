@@ -13,24 +13,8 @@ namespace TS.CodeGenerator
         private TSGenerator _generator;
         private string _resolveDirectory;
 
-        public AssemblyReader(string dllPath)
+        public AssemblyReader(Assembly asm)
         {
-            if (!File.Exists(dllPath))
-            {
-                throw new Exception("DLL attempting to generate " + dllPath + " Does NOT EXIST");
-            }
-
-            _resolveDirectory = Path.GetDirectoryName(dllPath);
-            var files = Directory.EnumerateFiles(_resolveDirectory, "*.dll");
-            var fi = new FileInfo(dllPath);
-
-#if NET462
-            Assembly asm = Assembly.LoadFile(fi.FullName);
-#else
-            Assembly asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(fi.FullName);
-
-#endif
-
             //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             //AppDomain.CurrentDomain.SetupInformation.PrivateBinPath = dir;
             //AppDomain.CurrentDomain.AppendPrivatePath(_resolveDirectory);
@@ -62,10 +46,34 @@ namespace TS.CodeGenerator
                     }
                     continue;
                 }
-               
+
 
                 _generator.AddInterface(type);
             }
+        }
+
+        [Obsolete]
+        public AssemblyReader(string dllPath)
+        {
+            if (!File.Exists(dllPath))
+            {
+                throw new Exception("DLL attempting to generate " + dllPath + " Does NOT EXIST");
+            }
+
+            _resolveDirectory = Path.GetDirectoryName(dllPath);
+            var files = Directory.EnumerateFiles(_resolveDirectory, "*.dll");
+            var fi = new FileInfo(dllPath);
+
+
+#if NET462
+            Assembly asm = Assembly.LoadFrom(fi.FullName);
+#else
+            
+            Assembly asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(fi.FullName);
+
+#endif
+
+           
 
         }
 

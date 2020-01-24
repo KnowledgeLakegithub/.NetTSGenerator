@@ -1,17 +1,23 @@
 ﻿# make sure to add
 #    powershell.exe -File $(ProjectDir)Generate_dts.ps1
 # to your pono dll's post build step
+$pwd = split-path -parent $MyInvocation.MyCommand.Definition
+if($pwd -eq ""){
+    $pwd = (pwd).Path
+}
+Write-Host "Directory" $pwd
+[Environment]::CurrentDirectory = $pwd
 
 cd "..\TS.CodeGenerator.Console\bin\Release\PublishOutput"
 # script working directory
 #$pwd = split-path -parent $MyInvocation.MyCommand.Definition
 #$rootDir = (get-item $pwd )
 
-[Environment]::CurrentDirectory = (pwd)
+$p = join-path (pwd).Path "..\..\..\..\lib.test.a.b\bin\Debug\netstandard1.5\lib.test.a.b.d.ts"
+$outFileName = [System.IO.Path]::GetFullPath($p)
 
-$outFileName = [System.IO.Path]::GetFullPath("..\..\..\..\lib.test.a.b\bin\Debug\netstandard1.5\lib.test.a.b.d.ts")
-
-$inputDll = [System.IO.Path]::GetFullPath("..\..\..\..\lib.test.a.b\bin\Debug\netstandard1.5\lib.test.a.b.dll")
+$p = join-path (pwd).Path "..\..\..\..\lib.test.a.b\bin\Debug\netstandard1.5\lib.test.a.b.dll"
+$inputDll =  [System.IO.Path]::GetFullPath($p)
 
 dotnet TS.CodeGenerator.Console.dll $inputDll $outFileName
 
@@ -34,7 +40,9 @@ Write-Host ""
 Write-output ""
 Write-output `Creating d.ts file from assembly: ` $inputDll
 Write-output ""
-$assemblyReader = new-object -Typename TS.CodeGenerator.AssemblyReader -ArgumentList $inputDll
+$asm = [Reflection.Assembly]::LoadFile($inputDll)
+
+$assemblyReader = new-object -Typename TS.CodeGenerator.AssemblyReader -ArgumentList $asm
 #or do this
 #$asm= [Reflection.Assembly]::LoadFile($dirDll)
 #$assemblyReader = new-object -Typename TS.CodeGenerator.NamespaceAssemblyReader -ArgumentList $asm

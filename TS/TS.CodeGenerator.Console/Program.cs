@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using System.Runtime.Loader;
 
 namespace TS.CodeGenerator.Console
 {
@@ -20,7 +22,8 @@ namespace TS.CodeGenerator.Console
             }
            
             Settings.MethodReturnTypeFormatString = "{0}";
-            var reader = new AssemblyReader(input);
+            Assembly asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(input);
+            var reader = new AssemblyReader(asm);
 
             if (File.Exists(output))
             {

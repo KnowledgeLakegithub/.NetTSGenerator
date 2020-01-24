@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
-    <PostBuildEvent>#powershell.exe -file "C:\Users\Administrator\Desktop\knowledgegraph\KnowledgeGraph\.NetTSGenerator\TS\lib.test.a.b\build_dts.ps1"</PostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
