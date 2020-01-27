@@ -102,10 +102,37 @@ namespace TS.CodeGenerator
             return true;
         }
 
+        private bool _handleIfDict(Type type)
+        {
+            var ti = type.GetTypeInfo();
+            if (!ti.IsGenericType)
+                return false;
+
+
+            var td = ti.GetGenericTypeDefinition();
+            bool isDict = 
+                        td == typeof(Dictionary<,>)
+                        || td == typeof(ILookup<,>)
+                        || td == typeof(IDictionary<,>)
+                    ;
+            if (!isDict)
+                return false;
+
+            var args = ti.GetGenericArguments();
+
+            var p1 = GenerateLookupTypeName(args[0]);
+            var p2 = GenerateLookupTypeName(args[1]);
+
+            var t = string.Format(Settings.DictionaryFormat, p1, p2);
+
+            _addTypeMap(type, t);
+            return true;
+        }
+
+
         private bool _handleIfGenericParameter(Type type)
         {
             if (!type.IsGenericParameter)
-
                 return false;
 
             _addTypeMap(type,  type.Name);
@@ -145,6 +172,9 @@ namespace TS.CodeGenerator
                 return _typeMap[type];
 
             if (_handleIfGenericParameter(type))
+                return _typeMap[type];
+
+            if (_handleIfDict(type))
                 return _typeMap[type];
 
             if (_handleIfClassOrInterface(type))

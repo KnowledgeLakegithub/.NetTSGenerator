@@ -16,6 +16,7 @@ namespace TS.CodeGenerator
             Indentation = "\t";
             InterfaceFormat = "I{0}";
             MethodReturnTypeFormatString = "JQueryPromise<{0}>";
+            DictionaryFormat = "IDictionary<{0}, {1}>";
             StartingTypeMap = new Dictionary<Type, string>
             {
                 {typeof (string), Types.String},
@@ -61,7 +62,8 @@ namespace TS.CodeGenerator
         public static string EndOfLine { get; set; }
         public static bool ConstEnumsEnabled { get; set; }
         public static string InterfaceFormat { get; set; }
-        public static List<string> IgnoreInterfaces { get; private set; } 
+        public static List<string> IgnoreInterfaces { get; set; }
+        public static string DictionaryFormat { get; set; }
     }
 
 }

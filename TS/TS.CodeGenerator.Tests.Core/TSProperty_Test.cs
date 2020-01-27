@@ -54,6 +54,7 @@ namespace TS.CodeGenerator.tests
         public T Prop11_1;
         public IEnumerable<T> Prop12_1;
         public Sex Prop13_1;
+        public Dictionary<string,bool> Prop14_1;
     }
 
     public class BigClassInherited : IInterfaceClass
@@ -75,7 +76,11 @@ namespace TS.CodeGenerator.tests
     {
         int Prop1 { get; set; }
     }
-
+    public interface Idictclass
+    {
+        Dictionary<string, bool> frank { get; }
+        Dictionary<bool, string> frank2 { get; }
+    }
     [TestClass]
     public class TSProperty_Test
     {
@@ -94,6 +99,25 @@ namespace TS.CodeGenerator.tests
             //assert
             Assert.IsTrue(!string.IsNullOrEmpty(res));
         }
+
+        [TestMethod]
+        public void TestDictClass()
+        {
+
+            //arrange
+            var c = typeof(Idictclass);
+            var gen = new TSGenerator();
+            var prop = new TSInterface(c, gen.GenerateLookupTypeName);
+            prop.Initialize();
+
+            //act
+            var res = prop.ToTSString();
+
+            //assert
+            Assert.IsTrue(!string.IsNullOrEmpty(res));
+        }
+
+
 
         [TestMethod]
         public void TestSimpleClass()
