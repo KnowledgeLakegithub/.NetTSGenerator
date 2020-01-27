@@ -33,6 +33,10 @@ namespace TS.CodeGenerator.tests
         public IEnumerable<BigClassInherited> Prop10 { get; set; }
         public T Prop11 { get; set; }
         public IEnumerable<T> Prop12 { get; set; }
+        public List<T> Prop121 { get; set; }
+        public IList<T> Prop122 { get; set; }
+        public ICollection<T> Prop123 { get; set; }
+
         public Sex Prop13 { get; set; }
         //not really properties
 

@@ -193,7 +193,11 @@ namespace TS.CodeGenerator
                 return false;
 
             var genType = t.GetGenericTypeDefinition();
-            return genType == typeof(IEnumerable<>) || genType == typeof(IList<>);
+            
+            return genType == typeof(IEnumerable<>) 
+                    || genType == typeof(IList<>)
+                    || genType == typeof(List<>)
+                    || genType == typeof(ICollection<>);
 
         }
 
