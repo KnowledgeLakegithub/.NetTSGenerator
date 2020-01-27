@@ -23,7 +23,8 @@ namespace TS.CodeGenerator.Console
            
             Settings.MethodReturnTypeFormatString = "{0}";
             Assembly asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(input);
-            var reader = new AssemblyReader(asm);
+            var reader = new AssemblyReader();
+            reader.AddAssembly(asm);
 
             if (File.Exists(output))
             {

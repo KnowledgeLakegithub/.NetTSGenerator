@@ -9,9 +9,6 @@ Write-Host "Directory" $pwd
 [Environment]::CurrentDirectory = $pwd
 
 cd "..\TS.CodeGenerator.Console\bin\Release\PublishOutput"
-# script working directory
-#$pwd = split-path -parent $MyInvocation.MyCommand.Definition
-#$rootDir = (get-item $pwd )
 
 $p = join-path (pwd).Path "..\..\..\..\lib.test.a.b\bin\Debug\netstandard1.5\lib.test.a.b.d.ts"
 $outFileName = [System.IO.Path]::GetFullPath($p)
@@ -40,12 +37,11 @@ Write-Host ""
 Write-output ""
 Write-output `Creating d.ts file from assembly: ` $inputDll
 Write-output ""
-$asm = [Reflection.Assembly]::LoadFile($inputDll)
 
-$assemblyReader = new-object -Typename TS.CodeGenerator.AssemblyReader -ArgumentList $asm
-#or do this
-#$asm= [Reflection.Assembly]::LoadFile($dirDll)
-#$assemblyReader = new-object -Typename TS.CodeGenerator.NamespaceAssemblyReader -ArgumentList $asm
+
+$assemblyReader = new-object -Typename TS.CodeGenerator.AssemblyReader 
+$asm = [Reflection.Assembly]::LoadFile($inputDll)
+$assemblyReader.AddAssembly($asm)
 
 #set parameters here
 $outStream = $assemblyReader.GenerateTypingsStream()
@@ -58,8 +54,11 @@ $fs = New-Object IO.FileStream $outFileName ,'Append'
 $sw = New-Object IO.StreamWriter -ArgumentList  $fs
 #add addtional lines to script
 $sw.WriteLine('/// <reference path="../jquery/jquery.d.ts" />');
-$sw.Flush();
+
+#$assemblyReader.GenerateTypingsString()
+
 $outStream.WriteTo($fs);
+$sw.Flush();
 $fs.Flush();
 $fs.Close();
 $outStream.Close();

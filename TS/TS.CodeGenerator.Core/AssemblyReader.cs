@@ -6,14 +6,14 @@ using System.Runtime.Loader;
 
 namespace TS.CodeGenerator
 {
-    
+
 
     public class AssemblyReader : IAssemblyReader
     {
         private TSGenerator _generator;
         private string _resolveDirectory;
 
-        public AssemblyReader(Assembly asm)
+        public AssemblyReader()
         {
             //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             //AppDomain.CurrentDomain.SetupInformation.PrivateBinPath = dir;
@@ -33,8 +33,14 @@ namespace TS.CodeGenerator
 
             //var asm = Assembly.LoadFile(dllPath);
             //AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-            _generator = new TSGenerator(asm);
+            _generator = new TSGenerator();
 
+
+
+        }
+        public void AddAssembly(Assembly asm)
+        {
+            _generator.AddFollowAssembly(asm);
 
             foreach (var type in asm.GetExportedTypes())
             {
@@ -68,12 +74,12 @@ namespace TS.CodeGenerator
 #if NET462
             Assembly asm = Assembly.LoadFrom(fi.FullName);
 #else
-            
+
             Assembly asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(fi.FullName);
 
 #endif
+            AddAssembly(asm);
 
-           
 
         }
 
@@ -97,8 +103,11 @@ namespace TS.CodeGenerator
         {
             MemoryStream ms = new MemoryStream();
             var sw = new StreamWriter(ms);
+
             sw.Write(_generator.ToTSString());
             sw.Flush();
+
+
             return ms;
         }
 

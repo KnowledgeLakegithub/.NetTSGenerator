@@ -11,7 +11,7 @@ namespace TS.CodeGenerator
         static Settings()
         {
             MakeMethodsOptional = true;
-            FollowExternalAssemblies = false;
+            //FollowExternalAssemblies = false;
             EndOfLine = "\r\n";
             Indentation = "\t";
             InterfaceFormat = "I{0}";
@@ -56,7 +56,7 @@ namespace TS.CodeGenerator
 
         public static string MethodReturnTypeFormatString { get; set; }
         public static bool MakeMethodsOptional { get; set; }
-        public static bool FollowExternalAssemblies { get; set; }
+      //  public static bool FollowExternalAssemblies { get; set; }
         public static Dictionary<Type, string> StartingTypeMap { get; set; }
         public static string EndOfLine { get; set; }
         public static bool ConstEnumsEnabled { get; set; }

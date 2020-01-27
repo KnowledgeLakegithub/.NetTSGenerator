@@ -7,18 +7,27 @@ namespace TS.CodeGenerator
 {
     public class TSGenerator : ITSGenerator
     {
-        private readonly Assembly _currentAssembly;
         private Dictionary<Type, string> _typeMap;
         private Dictionary<Type, TSInterface> _interfaceMap;
         private Dictionary<Type, TSConstEnumeration> _enumerationsMap;
+        private List<Assembly> _allowedAssemblies;
         public bool Modules { get; set; }
-        public TSGenerator(Assembly currentAssembly)
+        public TSGenerator(Assembly currentAssembly):this()
+        {
+            _allowedAssemblies.Add(currentAssembly);
+
+        }
+
+        public TSGenerator()
         {
             _enumerationsMap = new Dictionary<Type, TSConstEnumeration>();
             _typeMap = new Dictionary<Type, string>(Settings.StartingTypeMap);
             _interfaceMap = new Dictionary<Type, TSInterface>();
-            _currentAssembly = currentAssembly;
-
+            _allowedAssemblies = new List<Assembly>();
+        }
+        public void AddFollowAssembly(Assembly asm)
+        {
+            _allowedAssemblies.Add(asm);
         }
 
         private void _addTypeMap(Type type, string name)
@@ -106,7 +115,7 @@ namespace TS.CodeGenerator
         private bool _handleIfClassOrInterface(Type type)
         {
             var ti = type.GetTypeInfo();
-            if (!Settings.FollowExternalAssemblies && (ti.Assembly != _currentAssembly))
+            if (!_allowedAssemblies.Contains(ti.Assembly))
             {
                 //anything from other assemblies are any
                 _addTypeMap(type, Types.Any);

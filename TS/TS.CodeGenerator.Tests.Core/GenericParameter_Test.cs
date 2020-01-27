@@ -59,7 +59,7 @@ namespace TS.CodeGenerator.tests
             //arrange
             var c = typeof(MyGenericPropertiesClass<>);
             var gen = new TSGenerator(c.GetTypeInfo().Assembly);
-
+            
             //act
             gen.AddInterface(c);
             var res = gen.ToTSString();
