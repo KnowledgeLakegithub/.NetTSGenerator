@@ -204,12 +204,14 @@ namespace TS.CodeGenerator
         public string ToTSString()
         {
             var interfaces = _interfaceMap.Values
-                .Where(i => !i.IsGenericMetaClass)//bob<string>, vs bob<T>
-                .Distinct(new InterfaceComparer());
+                .Where(i => !i.IsGenericMetaClass && !string.IsNullOrWhiteSpace(i.FullName))//bob<string>, vs bob<T>
+                .Distinct(new InterfaceComparer())
+                .ToList();
 
 
             var strs = interfaces.Where(i => !Settings.IgnoreInterfaces.Contains(i.InterFaceName)).Select(v => v.ToTSString());
             var ints = string.Join(Settings.EndOfLine, strs);
+
             var enums = string.Join(Settings.EndOfLine, _enumerationsMap.Values.Select(en => en.ToTSString()));
 
             return ints + Settings.EndOfLine + enums;

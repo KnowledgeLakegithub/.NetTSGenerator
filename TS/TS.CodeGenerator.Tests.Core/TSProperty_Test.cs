@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
+using lib.test.a.c;
+using lib.test.a.b;
 
 namespace TS.CodeGenerator.tests
 {
@@ -152,7 +154,29 @@ namespace TS.CodeGenerator.tests
             Assert.IsTrue(!string.IsNullOrEmpty(res));
         }
 
-       
+
+        [TestMethod]
+        public void TestSimpleAssemblyReader()
+        {
+
+            //arrange
+            Settings.ConstEnumsEnabled = true;
+            
+            var reader = new AssemblyReader();
+
+            var a = typeof(DoThing<>).Assembly;
+            var b = typeof(MYPONO).Assembly;
+            reader.AddAssembly(b);
+            reader.AddAssembly(a);
+
+            //act
+            var res = reader.GenerateTypingsString();
+
+            //assert
+            Assert.IsTrue(!string.IsNullOrEmpty(res));
+        }
+
+
 
 
     }

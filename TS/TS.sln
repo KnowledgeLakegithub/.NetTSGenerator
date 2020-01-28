@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TS.CodeGenerator.Tests.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TS.CodeGenerator.Console", "TS.CodeGenerator.Console\TS.CodeGenerator.Console.csproj", "{F09C2370-43FF-4A68-8D04-8454D33D30D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib.test.a.c", "lib.test.a.c\lib.test.a.c.csproj", "{D80513D3-7C0D-4652-99D9-D0FB85A26C4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{F09C2370-43FF-4A68-8D04-8454D33D30D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F09C2370-43FF-4A68-8D04-8454D33D30D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F09C2370-43FF-4A68-8D04-8454D33D30D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D80513D3-7C0D-4652-99D9-D0FB85A26C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D80513D3-7C0D-4652-99D9-D0FB85A26C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D80513D3-7C0D-4652-99D9-D0FB85A26C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D80513D3-7C0D-4652-99D9-D0FB85A26C4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,4 +8,8 @@
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\lib.test.a.c\lib.test.a.c.csproj" />
+  </ItemGroup>
+
 </Project>

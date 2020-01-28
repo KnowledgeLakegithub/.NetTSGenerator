@@ -24,6 +24,7 @@ namespace TS.CodeGenerator
             _type = type;
             _mapType = mapType;
             ModuleName = type.Namespace;
+            FullName = ti.FullName;
             //Methods = new List<TSMethod>();
             var name = ti.IsGenericType
                             ? type.Name.Split(new[] { '`' }).First()
@@ -60,11 +61,13 @@ namespace TS.CodeGenerator
         public List<Type> Interfaces { get; set; }
         public bool IsExported { get; set; }
         public string InterFaceName { get; private set; }
-        public List<string> DerivedInterfaces { get; private set; }
+        public List<string> DerivedInterfaces { get; private set; } = new List<string>();
         public List<TSProperty> Properties { get; private set; }
         public List<TSMethod> Methods { get; private set; }
         public List<TSGenericParameter> GenericParameters { get; set; }
         public string ModuleName { get; set; }
+
+        public string FullName { get; }
 
         public bool IsGenericMetaClass
         {
@@ -86,8 +89,15 @@ namespace TS.CodeGenerator
             }
 
             //base types
-            DerivedInterfaces = Interfaces.Select(_mapType).Except(new[] { Types.Any, Types.Boolean, Types.Number, Types.String, Types.Void }).ToList();
-
+            var exc = new [] { Types.Any, Types.Boolean, Types.Number, Types.String, Types.Void };
+            foreach (var intr in Interfaces)
+            {
+                var typ = _mapType(intr);
+                if(!exc.Contains(typ))
+                    DerivedInterfaces.Add(typ);
+            }
+            //DerivedInterfaces = Interfaces.Select(_mapType).Except(new[] { Types.Any, Types.Boolean, Types.Number, Types.String, Types.Void }).ToList();
+            //foreach(var der in DerivedInterfaces) { }
 
             //generic
             foreach (var tsGenericParameter in GenericParameters)
@@ -125,7 +135,7 @@ namespace TS.CodeGenerator
                                 : "  /*methods*/" + Settings.EndOfLine
                                 + "\t" + string.Join(Settings.EndOfLine + "\t", Methods.Select(m => m.ToTSString()));
             string result = string.Format(formatInterface,
-                                            _type.FullName,
+                                            FullName,
                                             IsExported ? "export " : string.Empty,
                                             InterFaceName,
                                             derived,
