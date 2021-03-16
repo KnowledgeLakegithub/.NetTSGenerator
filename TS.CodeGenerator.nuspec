@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>TS.CodeGenerator</id>
+    <version>1.0.0.37</version>
+    <title>.Net TS Generator</title>
+    <authors>Max Fridberg</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/KnowledgeLakegithub/.NetTSGenerator</projectUrl>
+    <description>Package comprised of dll and ps1 to run as a post build,
+      PS1 will generate a d.ts and allow you to modify where to place it.
+      All you need to do is run it as a post-build event.
+      Note this is NOT a TT (template file).</description>
+	  <dependencies>
+	  </dependencies>
+  </metadata>
+  <files>
+	<file src="TS\TS.CodeGenerator.Console\bin\Release\netcoreapp2.2\*" target="tools/"/>
+  </files>
+</package>

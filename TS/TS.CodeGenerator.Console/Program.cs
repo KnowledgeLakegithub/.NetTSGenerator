@@ -11,18 +11,25 @@ namespace TS.CodeGenerator.Console
         {
             var input = Path.GetFullPath(args[0]);
             var output = Path.GetFullPath(args[1]);
+            var inputFolder = Path.GetDirectoryName(input);
 
             System.Console.WriteLine($"Input Path {input}");
             System.Console.WriteLine($"Output Path {output}");
-
             if (!File.Exists(input))
             {
                 System.Console.Error.WriteLine($"Could Not Find input {input}");
                 return;
             }
-           
+
             Settings.MethodReturnTypeFormatString = "{0}";
             Assembly asm = AssemblyLoadContext.Default.LoadFromAssemblyPath(input);
+            
+            var files = Directory.GetFiles(inputFolder, "*.dll");
+            foreach (var file in files)
+            {
+                AssemblyLoadContext.Default.LoadFromAssemblyPath(file);
+            }
+
             var reader = new AssemblyReader();
             reader.AddAssembly(asm);
 
@@ -34,9 +41,9 @@ namespace TS.CodeGenerator.Console
             using (var sw = new StreamWriter(of))
             {
                 var types = reader.GenerateTypingsString();
-               // sw.WriteLine(@"/// <reference path=""../jquery/jquery.d.ts"" />");
+                // sw.WriteLine(@"/// <reference path=""../jquery/jquery.d.ts"" />");
                 sw.WriteLine(types);
-                
+
             }
             System.Console.WriteLine("...");
             System.Console.WriteLine("Completed");
